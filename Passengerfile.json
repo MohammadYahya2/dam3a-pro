@@ -1,0 +1,4 @@
+{
+      "app_type": "python",
+      "startup_file": "/dam3a/wsgi.py"
+}
