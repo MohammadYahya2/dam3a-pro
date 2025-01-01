@@ -30,9 +30,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6w64&zy5@0*l2jmk2q)@5(0v=v4%_)3!zcbpk-2n^ngbo7h$$g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["dam3a.pro"]
 # dam3a/settings.py
 
 
