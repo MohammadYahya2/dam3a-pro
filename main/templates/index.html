@@ -1,0 +1,794 @@
+    <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ title }}</title>
+        
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <link rel="stylesheet" href="{% static 'team_slider.css' %}">
+        <link rel="stylesheet" href="{% static 'interior-design.css' %}">
+        <link rel="stylesheet" href="{% static 'services.css' %}">
+        
+        <!-- GSAP Libraries -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+        
+        <!-- Other Libraries -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+        
+        <!-- External CSS Libraries -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    </head>
+    <body class="light-theme">
+        <!-- Header Section -->
+        {% load crispy_forms_tags %}
+
+        <div id="preloader">
+            <div class="spinner"></div>
+        </div>
+        <style>
+
+            
+    /* Preloader Styles */
+    #preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--background-color); /* لون الخلفية يتماشى مع موضوع الصفحة */
+        z-index: 9999; /* يجب أن يكون أعلى من أي عنصر آخر */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .spinner {
+        border: 8px solid #f3f3f3; /* لون الحواف الخارجية */
+        border-top: 8px solid var(--primary-color); /* لون الحافة العليا */
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        animation: spin 1s linear infinite;
+    }
+
+    /* Animation for spinner */
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+        </style>
+
+        <header class="header-sec">
+            <nav>
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fa fa-bars"></i>
+                </label>
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'logo.jpg' %}" alt="Logo" class="logo-img">
+                </a>
+                <ul>
+                    <li><a class="active" href="#"> Home</a></li>
+                    <li><a href="#about"><i class="fa fa-user"></i> About</a></li>
+                    <li><a href="#services"><i class="fa fa-cogs"></i> Services</a></li>
+                    <li><a href="#portfolio"><i class="fa fa-briefcase"></i> Portfolio</a></li>
+                    <li><a href="#projects-experience"><i class="fa fa-history"></i> Experience</a></li>
+                    <li><a href="#counters"><i class="fa fa-trophy"></i> Achievements</a></li>
+                    <li><a href="#faq"><i class="fa fa-question-circle"></i> FAQ</a></li>
+                    <li><a href="#contact"><i class="fa fa-envelope"></i> Contact</a></li>
+                </ul>
+                
+            </nav>
+        </header>
+        <style>
+            ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 15px;
+    }
+
+    ul li {
+        position: relative;
+    }
+
+    ul li a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: #333;
+        font-size: 16px;
+        padding: 10px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    ul li a.active, ul li a:hover {
+        background-color: #ff8e47;
+        color: #fff;
+    }
+
+    ul li a i {
+        font-size: 18px;
+        color: inherit;
+        transition: transform 0.3s;
+    }
+
+    ul li a:hover i {
+        transform: scale(1.1);
+    }
+
+        </style>
+
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <div class="hero-background"></div> <!-- Adding a background element -->
+            <div class="hero-content">
+                <h1>Welcome to Dam3a</h1>
+                <h2>Your Web Development Partner</h2>
+                <p>
+                    At Dam3a, we specialize in creating stunning and responsive websites tailored to your business needs. Let us help you establish a strong online presence and achieve your digital goals.
+                </p>
+                <div class="btn-box">
+                    <a href="#services" class="btn-primary">services</a>
+                    <a href="#contact" class="btn-secondary">Get in Touch</a>
+                </div>
+            </div>
+        </section>
+    <!-- Introductory Section -->
+    <section class="intro" id="intro">
+        <div class="intro-container">
+            <div class="intro-content" data-aos="fade-up">
+                <h2>What We Offer</h2>
+                <p>
+                    At Dam3a, we strive to provide the best web development solutions tailored specifically to meet your business needs. Whether you're looking for an attractive website, an efficient e-commerce store, interior design services, or handling large-scale projects, our specialized team is ready to help you achieve your digital goals.
+                </p>
+            </div>
+            <div class="intro-services">
+                <div class="service-item" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fa fa-code"></i>
+                    <h3>Web Development</h3>
+                    <p>Designing and programming responsive and modern websites using the latest technologies.</p>
+                </div>
+                <div class="service-item" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa fa-mobile"></i>
+                    <h3>App Development</h3>
+                    <p>Creating user-friendly mobile applications for both iOS and Android platforms.</p>
+                </div>
+                <div class="service-item" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fa fa-paint-brush"></i>
+                    <h3>Interior Design</h3>
+                    <p>Providing innovative interior design solutions to enhance your workspace and living areas.</p>
+                </div>
+                <div class="service-item" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fa fa-building"></i>
+                    <h3>Large-Scale Projects</h3>
+                    <p>Managing and executing large-scale projects with precision and expertise.</p>
+                </div>
+                <!-- خدمة إضافية من جانبي -->
+                <div class="service-item" data-aos="fade-up" data-aos-delay="500">
+                    <i class="fa fa-cloud"></i>
+                    <h3>Cloud Solutions</h3>
+                    <p>Offering scalable and secure cloud services to optimize your business operations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-title">
+            <h2>Meet Our Team</h2>
+        </div>
+        <div class="swiper-container about-swiper">
+            <div class="swiper-wrapper">
+                {% for member in team_members %}
+                <div class="swiper-slide">
+                    <div class="card">
+                        <div class="image-content">
+                            <span class="overlay"></span>
+                            <div class="card-image">
+                                <img src="{{ member.image.url }}" 
+                                    alt="{{ member.name_en }}"
+                                    class="card-img">
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h2 class="name">
+                                {{ member.name_en }}
+                            </h2>
+                            <!-- Education -->
+                            <p class="description">
+                                <strong>Education: </strong>
+                                {{ member.education_en|default:"No Education" }}
+                            </p>
+                            <!-- Short Description -->
+                            <p class="description">
+                                {{ member.short_desc_en|default:"No Description" }}
+                            </p>
+                            <!-- View More Button with Additional Data -->
+                            <a href="{% url 'team_member_detail' member.id %}" class="button view-more-btn">
+                                View More
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Swiper Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Swiper Navigation Buttons -->
+            <div class="swiper-button-next swiper-navBtn"></div>
+            <div class="swiper-button-prev swiper-navBtn"></div>
+        </div>
+    </section>
+
+
+        <style>
+            /* About Section Title */
+            .about-title {
+                text-align: center;
+                margin-bottom: 50px;
+            }
+
+            .about-title h2 {
+                font-size: 36px;
+                color: var(--text-color);
+                font-weight: 700;
+                display: inline-block;
+                position: relative;
+            }
+
+            /* Underline for the Title */
+            .about-title h2::after {
+                content: '';
+                width: 100px;
+                height: 4px;
+                background: #ff8e47;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: -15px;
+                border-radius: 2px;
+            }
+
+            /* About Section Styling */
+            .about {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 100px 20px;
+                background-color: var(--background-color);
+            }
+
+            .about-swiper {
+                position: relative;
+                overflow: visible;
+                padding: 0 60px;
+                width: 100%;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .about-swiper .swiper-wrapper {
+                display: flex;
+                align-items: center;
+            }
+
+            .about-swiper .swiper-slide {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .card {
+                background-color: var(--card-bg);
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+            }
+
+            .card-image img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .card-content {
+                padding: 20px;
+                text-align: center;
+            }
+
+            .card-content .name {
+                font-size: 20px;
+                margin-bottom: 10px;
+                color: var(--text-color);
+            }
+
+            .card-content .description {
+                font-size: 14px;
+                color: #666;
+                margin-bottom: 15px;
+            }
+
+            .button {
+                background-color: var(--primary-color);
+                color: #fff;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 25px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .button:hover {
+                background-color: #a8bfd7;
+            }
+
+            /* Swiper Navigation Buttons Positioning */
+            .about-swiper .swiper-button-next,
+            .about-swiper .swiper-button-prev {
+                top: 50%;
+                transform: translateY(-50%);
+                width: 40px;
+                height: 40px;
+                background-color: rgba(255, 255, 255, 0.8);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                z-index: 10;
+            }
+
+            .about-swiper .swiper-button-next {
+                right: -60px;
+            }
+
+            .about-swiper .swiper-button-prev {
+                left: -60px;
+            }
+
+            /* Swiper Pagination Styling */
+            .swiper-pagination-bullet {
+                background: var(--primary-color);
+                opacity: 0.7;
+            }
+
+            .swiper-pagination-bullet-active {
+                opacity: 1;
+            }
+
+            /* Responsive Adjustments */
+            @media (max-width: 950px) {
+                .about-swiper {
+                    padding: 0 40px;
+                }
+
+                .about-swiper .swiper-button-next {
+                    right: -40px;
+                }
+
+                .about-swiper .swiper-button-prev {
+                    left: -40px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .about-swiper {
+                    padding: 0 20px;
+                }
+
+                .about-swiper .swiper-button-next,
+                .about-swiper .swiper-button-prev {
+                    display: none;
+                }
+            }
+        </style>
+        
+        <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="services-container">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            {% for service in services %}
+            <div class="service-card tilt-effect" data-aos="zoom-in">
+            
+            {% if service.image %}
+            <div class="service-image">
+                <img src="{{ service.image.url }}" alt="{{ service.title_en }}" loading="lazy">
+            </div>
+            {% endif %}
+            
+            
+            <div class="service-icon">
+                <i class="{{ service.icon }}"></i>
+            </div>
+            
+            <!-- عنصر وسيط لاحتواء العنوان والوصف -->
+            <div class="service-content">
+                <h3>{{ service.title_en }}</h3>
+                <p>{{ service.description_en }}</p>
+            </div>
+            
+            <a href="{% url 'service_request' %}?service={{ service.id }}" class="project-link">
+                Request Service
+            </a>
+            </div>
+            {% empty %}
+            <p>No services available.</p>
+            {% endfor %}
+        </div>
+        </div>
+    </section>
+    
+    
+        
+        <!-- External JavaScript Libraries -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+        
+        <!-- Custom JavaScript Files -->
+        
+        <!-- Portfolio Section -->
+        <section class="portfolio" id="portfolio">
+            <div class="portfolio-container">
+                <h2>Our Portfolio</h2>
+                
+                <!-- Portfolio Filters -->
+                <div class="portfolio-filters" data-aos="fade-up">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="web">Web Development</button>
+                    <button class="filter-btn" data-filter="design">Design</button>
+                    <button class="filter-btn" data-filter="seo">SEO</button>
+                </div>
+                
+                <!-- Portfolio Grid -->
+                <div class="portfolio-grid">
+                    {% for project in portfolios %}
+                        <div class="portfolio-item" data-category="{{ project.category }}" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:"0" }}">
+                            <img src="{{ project.image.url }}" alt="{{ project.title_en }}">
+                            <div class="portfolio-overlay">
+                                <h3>{{ project.title_en }}</h3>
+                                <p>{{ project.description_en }}</p>
+                                <a href="{{ project.image.url }}" class="lightbox">View Details</a>
+                            </div>
+                        </div>
+                    {% empty %}
+                        <p>No portfolio items available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <!-- Lightbox Modal -->
+            <div id="lightbox-modal" class="lightbox-modal">
+                <span class="close">&times;</span>
+                <img class="lightbox-content" id="lightbox-image">
+                <div id="lightbox-caption"></div>
+            </div>
+        </section>
+        
+        <!-- Projects & Experience Section -->
+        <section class="projects-experience" id="projects-experience">
+            <div class="projects-experience-container">
+                <h2>Our Projects & Experience</h2>
+                
+                <!-- Display number of projects -->
+                <p>Total Projects: {{ projects.count }}</p>
+                
+                <!-- Swiper Slider -->
+                <div class="swiper-container projects-experience-swiper">
+                    <div class="swiper-wrapper">
+                        {% for project in projects %}
+                        <div class="swiper-slide">
+                            <div class="project-card" data-aos="flip-left">
+                                <div class="project-image">
+                                    <img src="{{ project.image.url }}" alt="{{ project.title_en }}">
+                                </div>
+                                <div class="project-info">
+                                    <h3>{{ project.title_en }}</h3>
+                                    <p>{{ project.description_en }}</p>
+                                    {% if project.link %}
+                                    <a href="{{ project.link }}" class="project-link" target="_blank" rel="noopener noreferrer">Visit Site</a>
+                                    {% else %}
+                                    <a href="#" class="project-link">Learn More</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="swiper-slide">
+                            <div class="project-card">
+                                <p>No projects available.</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Swiper Pagination -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Swiper Navigation Buttons -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Counters Section -->
+        <section class="counters" id="counters">
+            <div class="counters-container">
+                <h2>Our Achievements</h2>
+                <div class="counters-grid">
+                    <div class="counter-item" data-aos="fade-up">
+                        <h3><span class="counter" data-count="150">0</span>+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="counter-item" data-aos="fade-up" data-aos-delay="100">
+                        <h3><span class="counter" data-count="50">0</span>+</h3>
+                        <p>Happy Clients</p>
+                    </div>
+                    <div class="counter-item" data-aos="fade-up" data-aos-delay="200">
+                        <h3><span class="counter" data-count="20">0</span>+</h3>
+                        <p>Awards Won</p>
+                    </div>
+                    <div class="counter-item" data-aos="fade-up" data-aos-delay="300">
+                        <h3><span class="counter" data-count="10">0</span>+</h3>
+                        <p>Years of Experience</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq" id="faq">
+            <div class="faq-container">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-accordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-item" data-aos="fade-up">
+                        <div class="faq-question">
+                            <span class="toggle-icon"><i class="fa fa-plus"></i></span>
+                            <span>What services do you offer?</span>
+                        </div>
+                        <div class="faq-answer">
+                            We offer a wide range of web development services including responsive design, SEO optimization, e-commerce solutions, and more.
+                        </div>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="faq-question">
+                            <span class="toggle-icon"><i class="fa fa-plus"></i></span>
+                            <span>How long does a project typically take?</span>
+                        </div>
+                        <div class="faq-answer">
+                            The duration of a project depends on its complexity. On average, projects take between 4 to 12 weeks.
+                        </div>
+                    </div>
+                    <!-- Add more FAQ items as needed -->
+                </div>
+            </div>
+        </section>
+        
+        <!-- Blog Section -->
+        <section class="blog" id="blog">
+            <div class="blog-container">
+                <h2>Latest Blog Posts</h2>
+                <div class="blog-grid">
+                    <!-- Blog Post 1 -->
+                    <div class="blog-post" data-aos="fade-up">
+                        <img src="{% static 'OIP (1).jpeg' %}" alt="Blog Post 1">
+                        <div class="blog-content">
+                            <h3>How to Improve Your Website's SEO</h3>
+                            <p>
+                                Learn the essential strategies to boost your website's visibility on search engines and attract more visitors.
+                            </p>
+                            <a href="https://backlinko.com/improve-your-seo" class="blog-btn">Read More</a>
+                        </div>
+                    </div>
+                    <!-- Blog Post 2 -->
+                    <div class="blog-post" data-aos="fade-up" data-aos-delay="100">
+                        <img src="{% static 'maxresdefault.jpg' %}" alt="Blog Post 1">
+                        <div class="blog-content">
+                            <h3>Top Design Trends in 2024</h3>
+                            <p>
+                                Stay ahead with the latest design trends that are shaping the future of web development.
+                            </p>
+                            <a href="https://illustrarch.com/articles/architectural-sustainability/29957-top-10-design-trends-in-2024.html#:~:text=Exploring%20the%20Top%2010%20Design%20Trends%20in%202024,of%20Digital%20and%20AI%20Enhancements%20...%20More%20items" class="blog-btn">Read More</a>
+                        </div>
+                    </div>
+                    <div class="blog-post" data-aos="fade-up" data-aos-delay="100">
+                        <img src="{% static 'logo.jpg' %}" alt="Blog Post 1">
+                        <div class="blog-content">
+                            <h3>Launching a company Dam3a</h3>
+                            <p>
+                                Dam3a specializes in web development, e-commerce, interior design, and large-scale project management.
+                            </p>
+                            <a href="https://dam3a.pro" class="blog-btn">Read More</a>
+                        </div>
+                    </div>
+                    <!-- Add more blog posts as needed -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Display Django Messages -->
+        {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <div class="contact-container">
+                <h2>Contact Us</h2>
+                <div class="contact-content">
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+                        <div class="info-box">
+                            <i class="fa fa-map-marker fa-2x mb-3 text-primary"></i>
+                            <h3>Address</h3>
+                            <p>Palestine, Ramallah, Tira</p>
+                        </div>
+                        <div class="info-box">
+                            <i class="fa fa-phone fa-2x mb-3 text-primary"></i>
+                            <h3>Phone</h3>
+                            <p>+972595253709</p>
+                        </div>
+                        <div class="info-box">
+                            <i class="fa fa-envelope fa-2x mb-3 text-primary"></i>
+                            <h3>Email</h3>
+                            <p>dam3abro@gmail.com</p>
+                        </div>
+                    </div>
+                    <!-- Contact Form -->
+                    <div class="contact-form">
+                        <form id="contactForm" method="POST" action="{% url 'index' %}">
+                            {% csrf_token %}
+                            <!-- Name -->
+                            <div class="form-group">
+                                <label for="{{ form.name.id_for_label }}">Name*</label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="error">{{ form.name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="{{ form.email.id_for_label }}">Email*</label>
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                    <div class="error">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <!-- Subject -->
+                            <div class="form-group">
+                                <label for="{{ form.subject.id_for_label }}">Subject*</label>
+                                {{ form.subject }}
+                                {% if form.subject.errors %}
+                                    <div class="error">{{ form.subject.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <!-- Message -->
+                            <div class="form-group">
+                                <label for="{{ form.message.id_for_label }}">Message*</label>
+                                {{ form.message }}
+                                {% if form.message.errors %}
+                                    <div class="error">{{ form.message.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <!-- Submit Button -->
+                            <button type="submit" class="submit-btn">Send Message</button>
+                        </form>
+                        <!-- Confirmation Message -->
+                        <div id="form-message" class="alert-success" style="display:none;">
+                            <p>Thank you for contacting us! We will get back to you shortly.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Contact Illustration -->
+                <div class="contact-illustration">
+                    <img src="{% static 'images/contact-illustration.svg' %}" alt="Contact Us">
+                </div>
+            </div>
+        </section>
+
+        <!-- Back to Top Button -->
+        <button id="back-to-top" title="Go to top">↑</button>
+
+        <!-- Footer Section -->
+        <footer class="footer">
+            <div class="footer-container">
+                <p>&copy; 2024 Dam3aWeb. All Rights Reserved.</p>
+                <div class="footer-social-icon">
+                    <a href="https://www.facebook.com/profile.php?id=100009883903279"><i class="fa fa-facebook fa-2x"></i></a>
+                    <a href="https://www.linkedin.com/in/mohammad-yahya-912482257/"><i class="fa fa-linkedin fa-2x"></i></a>
+                    <a href="https://www.instagram.com/mo7ammad.yahya/"><i class="fa fa-instagram fa-2x"></i></a>
+                    <a href="https://www.youtube.com/@Dam3a-a"><i class="fa fa-youtube fa-2x"></i></a>
+                    <a href="https://github.com/MohammadYahya2" target="_blank" rel="noopener noreferrer"><i class="fa fa-github fa-2x"></i></a>
+                </div>
+                <p class="footer-info">Palestine, Ramallah, Tira | +972595253709 | mohammad1.yahya2019@gmail.com</p>
+            </div>
+        </footer>
+
+        <!-- JS Scripts -->
+        <!-- AOS JS -->
+        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+        <!-- GSAP -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <!-- Swiper JS -->
+        <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+        <!-- Lightbox JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+        <!-- Custom JS -->
+        <script src="{% static 'js/scripts.js' %}"></script>
+        
+        <!-- External JavaScript Libraries -->
+        <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+        
+        <!-- Custom JavaScript Files -->
+        <script src="{% static 'js/contact-form.js' %}"></script>
+        <script src="{% static 'js/aos-init.js' %}"></script>
+        <script src="{% static 'js/language-toggle.js' %}"></script>
+        <script src="{% static 'js/dark-mode-toggle.js' %}"></script>
+        <script src="{% static 'js/swiper-init.js' %}"></script>
+        <script src="{% static 'js/portfolio-filter.js' %}"></script>
+        <script src="{% static 'js/lightbox-init.js' %}"></script>
+        <script src="{% static 'js/counters.js' %}"></script>
+        <script src="{% static 'js/gsap-animations.js' %}"></script>
+        <script src="{% static 'js/back-to-top.js' %}"></script>
+        <script src="{% static 'js/tilt-init.js' %}"></script>
+        <script src="{% static 'js/google-map.js' %}"></script>
+        <script src="{% static 'js/smooth-scrolling.js' %}"></script>
+        <script src="{% static 'js/faq.js' %}"></script>
+        <script src="{% static 'js/filter.js' %}"></script>
+        <!-- Additional Custom JavaScript Files -->
+        <script src="{% static 'js/hero.js' %}"></script>
+        <script src="{% static 'js/about.js' %}"></script>
+        
+        <!-- Custom JavaScript for Preloader -->
+    <script>
+        // إخفاء Preloader بعد تحميل الصفحة بالكامل
+        window.addEventListener('load', function() {
+        const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            preloader.style.transition = 'opacity 0.5s ease';
+
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500); // يتوافق مع مدة الانتقال في CSS
+        });
+    </script>
+
+        
+    </body>
+    </html>

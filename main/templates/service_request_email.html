@@ -1,0 +1,18 @@
+<!-- main/templates/emails/service_request_email.html -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>طلب خدمة جديد</title>
+</head>
+<body>
+    <h2>طلب خدمة جديد</h2>
+    <p><strong>الخدمة:</strong> {{ service }}</p>
+    <p><strong>الاسم:</strong> {{ name }}</p>
+    <p><strong>البريد الإلكتروني:</strong> {{ email }}</p>
+    <p><strong>الهاتف:</strong> {{ phone }}</p>
+    <p><strong>الموضوع:</strong> {{ subject }}</p>
+    <p><strong>الرسالة:</strong></p>
+    <p>{{ message }}</p>
+</body>
+</html>

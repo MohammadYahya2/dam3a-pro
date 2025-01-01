@@ -1,0 +1,114 @@
+<!-- main/templates/main/contact.html -->
+
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>اتصل بنا - دمعة</title>
+    <!-- ربط ملفات الـ CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- Bootstrap CSS لتحسين التصميم -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- مكتبة AOS (Animate On Scroll) CSS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2 data-en="Contact Us" data-ar="اتصل بنا">اتصل بنا</h2>
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right">
+                    <div class="info-box mb-4">
+                        <i class="fa fa-map-marker fa-2x mb-3"></i>
+                        <h3 data-en="Address" data-ar="العنوان">العنوان</h3>
+                        <p>Palestine, Ramallah, Tira</p>
+                    </div>
+                    <div class="info-box mb-4">
+                        <i class="fa fa-phone fa-2x mb-3"></i>
+                        <h3 data-en="Phone" data-ar="الهاتف">الهاتف</h3>
+                        <p>+972595253709</p>
+                    </div>
+                    <div class="info-box mb-4">
+                        <i class="fa fa-envelope fa-2x mb-3"></i>
+                        <h3 data-en="Email" data-ar="البريد الإلكتروني">البريد الإلكتروني</h3>
+                        <p>dam3abro@gmail.com</p>
+                    </div>
+                </div>
+                <!-- Contact Form -->
+                <div class="contact-form" data-aos="fade-left">
+                    <form id="contactForm" method="POST" action="{% url 'contact' %}">
+                        {% csrf_token %}
+                        
+                        <!-- عرض النموذج باستخدام crispy_forms -->
+                        {{ form|crispy }}
+                        
+                        <button type="submit" class="btn btn-primary mt-3" data-en="Send Message" data-ar="إرسال الرسالة">إرسال الرسالة</button>
+                    </form>
+                    <div id="form-message" class="mt-3 alert alert-success" style="display:none;">
+                        <p data-en="Thank you! Your message has been sent successfully." data-ar="شكراً! تم إرسال رسالتك بنجاح.">شكراً! تم إرسال رسالتك بنجاح.</p>
+                    </div>
+                </div>
+                
+                <div class="contact-illustration mt-4">
+                    <img src="{% static 'images/contact-illustration.svg' %}" alt="Contact Us" data-en-alt="Contact Us" data-ar-alt="اتصل بنا" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تضمين الفوتر -->
+
+
+    <!-- إضافة Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- إضافة مكتبة Font Awesome JS (اختياري) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <!-- إضافة مكتبة AOS (Animate On Scroll) JS -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <!-- تهيئة مكتبة AOS -->
+    <script>
+        AOS.init();
+    </script>
+    <!-- سكريبت AJAX لعرض رسالة التأكيد دون إعادة التوجيه -->
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // منع الإرسال الافتراضي للنموذج
+
+            // جمع بيانات النموذج
+            const formData = new FormData(this);
+
+            // إرسال البيانات عبر Fetch API
+            fetch("{% url 'contact' %}", {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRFToken': '{{ csrf_token }}',  // تأكد من إضافة توكن CSRF
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.success){
+                    // عرض رسالة التأكيد
+                    document.getElementById('form-message').style.display = 'block';
+                    // إعادة تعيين النموذج
+                    this.reset();
+                } else {
+                    alert(data.error || "حدث خطأ ما. يرجى المحاولة مرة أخرى.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("حدث خطأ ما. يرجى المحاولة مرة أخرى.");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!-- main/templates/main/admin_dashboard.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة تحكم المسؤولين</title>
+    <!-- استخدام Bootstrap لتحسين التصميم -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/styles.css' %}">
+</head>
+<body>
+    {% include 'header.html' %}
+
+    <div class="container mt-5">
+        <h2 class="mb-4">لوحة تحكم المسؤولين</h2>
+
+        <!-- عرض رسائل النجاح والخطأ -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- قسم طلبات الخدمة -->
+        <div class="mb-5">
+            <h3>طلبات الخدمة</h3>
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>الاسم</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>الهاتف</th>
+                        <th>الخدمة</th>
+                        <th>الموضوع</th>
+                        <th>الرسالة</th>
+                        <th>تاريخ التقديم</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in service_requests %}
+                    <tr>
+                        <td>{{ request.name }}</td>
+                        <td>{{ request.email }}</td>
+                        <td>{{ request.phone|default:"غير متوفر" }}</td>
+                        <td>{{ request.service.title_en }}</td>
+                        <td>{{ request.subject }}</td>
+                        <td>{{ request.message }}</td>
+                        <td>{{ request.created_at|date:"Y-m-d H:i" }}</td>
+                        <td>
+                            <a href="{% url 'service_request_delete' request.pk %}" class="btn btn-danger btn-sm">حذف</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center">لا توجد طلبات خدمة.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- روابط التصفح للصفحات -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if service_requests.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">&laquo; أول</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ service_requests.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">السابق</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            الصفحة {{ service_requests.number }} من {{ service_requests.paginator.num_pages }}.
+                        </span>
+                    </li>
+
+                    {% if service_requests.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ service_requests.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">التالي</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ service_requests.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">الأخير &raquo;</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+        <!-- قسم رسائل الاتصال -->
+        <div class="mb-5">
+            <h3>رسائل الاتصال</h3>
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>الاسم</th>
+                        <th>البريد الإلكتروني</th>
+                        <th>الموضوع</th>
+                        <th>الرسالة</th>
+                        <th>تاريخ الإنشاء</th>
+                        <th>الإجراءات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                    <tr>
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.email }}</td>
+                        <td>{{ contact.subject }}</td>
+                        <td>{{ contact.message }}</td>
+                        <td>{{ contact.created_at|date:"Y-m-d H:i" }}</td>
+                        <td>
+                            <a href="{% url 'contact_delete' contact.pk %}" class="btn btn-danger btn-sm">حذف</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">لا توجد رسائل اتصال.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- إضافة Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'main/js/scripts.js' %}"></script>
+</body>
+</html>

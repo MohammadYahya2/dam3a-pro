@@ -1,0 +1,321 @@
+/* استيراد الخطوط من Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600&family=Nunito+Sans:wght@400;600;700&display=swap');
+
+/* تعريف متغيرات CSS الأساسية */
+:root {
+    --primary-color: #ff8e47; /* لون الأساس */
+    --secondary-color: #eac14f; /* لون ثانوي */
+    --text-color: #ffffff;      /* لون النص الأساسي */
+    --background-color: #f7f7f7;/* لون الخلفية */
+    --card-bg: #ffffff;         /* خلفية الكروت */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* لون الظل */
+    --hover-bg-color: #ffbf80;  /* لون الخلفية عند التحويم */
+    --transition-duration: 0.3s;/* مدة الانتقالات */
+    --border-radius: 15px;      /* نصف قطر الحدود */
+
+    /* الخطوط الجديدة */
+    --font-body: 'Nunito Sans', sans-serif; 
+    --font-heading: 'Josefin Sans', sans-serif;
+}
+
+/* حاوية قسم الخدمات */
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    background-color: var(--background-color);
+    animation: fadeInDown 1s ease-out;
+    font-family: var(--font-body);
+}
+
+/* عنوان قسم الخدمات */
+.services-container h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 40px;
+    position: relative;
+    font-family: var(--font-heading);
+    color: var(--text-color);
+    animation: fadeInDown 1s ease-out;
+}
+
+.services-container h2::after {
+    content: '';
+    width: 100px;
+    height: 4px;
+    background: var(--primary-color);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -15px;
+    border-radius: 2px;
+}
+
+/* شبكة الخدمات */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    align-items: stretch; /* يضمن تساوي ارتفاع البطاقات */
+}
+
+/* كارد الخدمة */
+.service-card {
+    background: linear-gradient(135deg, #ff8e47 0%, #74d5f0 100%);
+    box-shadow: 0 4px 6px var(--shadow-color), inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition:
+        transform var(--transition-duration) ease,
+        box-shadow var(--transition-duration) ease,
+        background var(--transition-duration) ease;
+    font-family: var(--font-body);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: var(--text-color);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    height: 100%; /* لضمان تساوي ارتفاع الكروت */
+    box-sizing: border-box;
+}
+
+.service-content {
+    flex-grow: 1; /* تجعل محتوى العنوان والوصف يملأ المساحة العمودية */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* تأثير التحويم على البطاقة */
+.service-card:hover {
+    transform: translateY(-15px) rotateY(5deg);
+    box-shadow: 0 15px 25px var(--shadow-color), inset 0 2px 5px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(135deg, #ff8e47 0%, #00c6ff 100%);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    opacity: 0.2;
+    z-index: -1;
+    transition:
+        transform var(--transition-duration) ease,
+        opacity var(--transition-duration) ease;
+}
+
+.service-card:hover::before {
+    transform: translateX(-50%) scale(1.2);
+    opacity: 0.3;
+}
+
+/* صورة الخدمة */
+.service-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: transform var(--transition-duration) ease;
+    border: 4px solid var(--secondary-color);
+    background-color: var(--card-bg);
+}
+
+.service-card:hover .service-image {
+    transform: scale(1.1);
+}
+
+/* صورة الخدمة - داخلية */
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform var(--transition-duration) ease;
+}
+
+/* أيقونات الخدمة */
+.service-icon {
+    font-size: 50px;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    transition:
+        color var(--transition-duration) ease,
+        transform var(--transition-duration) ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    transition:
+        transform var(--transition-duration) ease,
+        fill var(--transition-duration) ease;
+}
+
+/* تدوير الأيقونة عند التحويم */
+.service-card:hover .service-icon svg {
+    transform: rotate(360deg);
+    fill: var(--text-color);
+}
+
+/* عنوان الخدمة */
+.service-card h3 {
+    font-size: 24px;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    text-align: center;
+    transition:
+        color var(--transition-duration) ease,
+        transform var(--transition-duration) ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    backface-visibility: hidden;
+    font-family: var(--font-heading);
+}
+
+.service-card:hover h3 {
+    color: antiquewhite;
+    transform: translateY(-5px);
+}
+
+/* وصف الخدمة */
+.service-card p {
+    font-size: 16px;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+    transition:
+        color var(--transition-duration) ease,
+        transform var(--transition-duration) ease;
+    backface-visibility: hidden;
+    line-height: 1.5;
+    font-family: var(--font-body);
+}
+
+.service-card:hover p {
+    color: var(--text-color);
+    transform: translateY(-5px);
+}
+
+/* زر طلب الخدمة */
+.project-link {
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 25px;
+    transition:
+        background-color var(--transition-duration) ease,
+        transform var(--transition-duration) ease,
+        box-shadow var(--transition-duration) ease;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-family: var(--font-body);
+}
+
+.project-link:hover {
+    background-color: var(--hover-bg-color);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+}
+
+/* إضافة تظليل للنصوص */
+.service-card h3, .service-card p {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* استجابة التصميم */
+@media screen and (max-width: 1024px) {
+    .services-container h2 {
+        font-size: 32px;
+    }
+    .service-card {
+        padding: 18px;
+    }
+    .service-icon {
+        font-size: 45px;
+    }
+    .service-card h3 {
+        font-size: 22px;
+    }
+    .service-card p {
+        font-size: 15px;
+    }
+    .project-link {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .services-container {
+        padding: 40px 15px;
+    }
+    .services-container h2 {
+        font-size: 28px;
+    }
+    .service-card {
+        padding: 15px;
+    }
+    .service-icon {
+        font-size: 40px;
+    }
+    .service-card h3 {
+        font-size: 20px;
+    }
+    .service-card p {
+        font-size: 14px;
+    }
+    .project-link {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .services-container h2 {
+        font-size: 24px;
+    }
+    .service-card {
+        padding: 12px;
+    }
+    .service-icon {
+        font-size: 35px;
+    }
+    .service-card h3 {
+        font-size: 18px;
+    }
+    .service-card p {
+        font-size: 13px;
+    }
+    .project-link {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+}
+
+/* إضافة تحولات للظهور */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

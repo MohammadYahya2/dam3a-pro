@@ -1,0 +1,422 @@
+<!-- team_member_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ member.name_en }} - Details</title>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'team_slider.css' %}">
+    <link rel="stylesheet" href="{% static 'interior-design.css' %}">
+    <link rel="stylesheet" href="{% static 'services.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- إضافة أي مكتبات CSS أخرى تحتاجها -->
+    
+    <!-- JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <!-- إضافة أي مكتبات JS أخرى تحتاجها -->
+    
+    <!-- ملاحظات: تأكد من إزالة تكرار تحميل المكتبات إذا كانت محملة بالفعل في ملفات أخرى -->
+    
+    <!-- الأنماط المخصصة -->
+    <style>
+        /* Reset بعض الأنماط الأساسية */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        /* Header Section */
+        .header-sec {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .header-sec nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+
+        .header-sec .logo-img {
+            height: 50px;
+        }
+
+        .header-sec ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-sec ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .header-sec ul li a:hover {
+            color: #ff8e47;
+        }
+
+        /* Member Header */
+        .team-member-detail .container {
+            padding: 100px 20px 60px; /* لتجنب التداخل مع الهيدر الثابت */
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .member-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 50px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .member-header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .member-image {
+            flex: 1 1 250px;
+            max-width: 250px;
+            margin-right: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 5px solid #ff8e47;
+            transition: transform 0.3s;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .member-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .member-info {
+            flex: 2 1 500px;
+        }
+
+        .member-info h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #ff8e47;
+        }
+
+        .member-info h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .member-info p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #666;
+        }
+
+        .member-social-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 20px;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+
+        .member-social-links a:hover {
+            color: #ff8e47;
+        }
+
+        /* Portfolio Section */
+        .portfolio-section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 28px;
+            color: #333;
+            position: relative;
+        }
+
+        .portfolio-section h2::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background-color: #ff8e47;
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-info {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .portfolio-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #ff8e47;
+        }
+
+        .portfolio-info p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .portfolio-info .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff8e47;
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .portfolio-info .btn:hover {
+            background-color: #e67e22;
+        }
+
+        /* Footer Section */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer .footer-social-icon a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .footer .footer-social-icon a:hover {
+            color: #ff8e47;
+        }
+
+        .footer .footer-info {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .member-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .member-image {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .header-sec nav {
+                flex-direction: column;
+            }
+
+            .header-sec ul {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header-sec">
+        <nav>
+            <input type="checkbox" id="check">
+            <label for="check" class="checkbtn">
+                <i class="fa fa-bars"></i>
+            </label>
+            <a href="{% url 'index' %}">
+                <img src="{% static 'logo.jpg' %}" alt="Logo" class="logo-img">
+            </a>
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#projects-experience">Experience</a></li>
+                <li><a href="#counters">Achievements</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- Team Member Detail Section -->
+    <section class="team-member-detail" id="team-member-detail">
+        <div class="container">
+            <div class="member-header">
+                <div class="member-image">
+                    <img src="{{ member.image.url }}" alt="{{ member.name_en }}">
+                </div>
+                <div class="member-info">
+                    <h1>{{ member.name_en }}</h1>
+                    <h2>{{ member.name_ar }}</h2>
+                    <p>{{ member.bio_en }}</p>
+                    <p>{{ member.bio_ar }}</p>
+                    <div class="member-social-links">
+                        {% if member.github %}
+                            <a href="{{ member.github }}" target="_blank"><i class="fa fa-github"></i></a>
+                        {% endif %}
+                        {% if member.linkedin %}
+                            <a href="{{ member.linkedin }}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                        {% endif %}
+                        {% if member.instagram %}
+                            <a href="{{ member.instagram }}" target="_blank"><i class="fa fa-instagram"></i></a>
+                        {% endif %}
+                        {% if member.youtube %}
+                            <a href="{{ member.youtube }}" target="_blank"><i class="fa fa-youtube"></i></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Portfolio Section -->
+            <div class="portfolio-section">
+                <h2>Portfolio</h2>
+                <div class="portfolio-grid">
+                    {% for project in portfolio %}
+                    <div class="portfolio-item">
+                        <img src="{{ project.image.url }}" alt="{{ project.title_en }}">
+                        <div class="portfolio-info">
+                            <h3>{{ project.title_en }}</h3>
+                            <p>{{ project.description_en|truncatewords:20 }}</p>
+                            {% if project.link %}
+                                <a href="{{ project.link }}" target="_blank" class="btn">View Project</a>
+                            {% endif %}
+                        </div>
+                        <!-- عرض صور المشروع الداخلية -->
+                        <div class="project-images">
+                            {% for image in project.images.all %}
+                                <img src="{{ image.image.url }}" alt="{{ image.alt_en }}" class="project-img">
+                            {% empty %}
+                                <p>No additional images available.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2024 Dam3aWeb. All Rights Reserved.</p>
+            <div class="footer-social-icon">
+                <a href="https://www.facebook.com/profile.php?id=100009883903279"><i class="fa fa-facebook fa-2x"></i></a>
+                <a href="https://www.linkedin.com/in/mohammad-yahya-912482257/"><i class="fa fa-linkedin fa-2x"></i></a>
+                <a href="https://www.instagram.com/mo7ammad.yahya/"><i class="fa fa-instagram fa-2x"></i></a>
+                <a href="https://www.youtube.com/@Dam3a-a"><i class="fa fa-youtube fa-2x"></i></a>
+                <a href="https://github.com/MohammadYahya2" target="_blank" rel="noopener noreferrer"><i class="fa fa-github fa-2x"></i></a>
+            </div>
+            <p class="footer-info">Palestine, Ramallah, Tira | +972595253709 | mohammad1.yahya2019@gmail.com</p>
+        </div>
+    </footer>
+    
+    <!-- JS Scripts -->
+    <script src="{% static 'js/scripts.js' %}"></script>
+    <script>
+        // تهيئة Swiper إذا كنت تستخدمها في صفحة التفاصيل
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                // تغيير عدد الشرائح المعروضة بناءً على حجم الشاشة
+                1024: {
+                    slidesPerView: 3,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                640: {
+                    slidesPerView: 1,
+                },
+            }
+        });
+    </script>
+</body>
+</html>

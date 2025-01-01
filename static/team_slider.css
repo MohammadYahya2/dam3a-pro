@@ -1,0 +1,158 @@
+/* team_slider.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.swiper-container {
+    max-width: 1120px;
+    width: 100%;
+    margin: 40px auto; 
+    padding: 40px 0; 
+}
+
+.swiper-wrapper {
+    display: flex;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    border-radius: 25px;
+    background-color: #FFFFFF;
+    width: 320px; /* أعد تعيين العرض إذا لزم الأمر */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.image-content {
+    position: relative;
+    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ff8e47;
+    border-radius: 25px 25px 0 25px;
+}
+
+.overlay::before, .overlay::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+    width: 40px;
+    height: 40px;
+    background-color: #ff8e47;
+}
+
+.overlay::after {
+    background-color: #FFFFFF;
+    border-radius: 0 25px 0 0;
+}
+
+.card-image {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    padding: 3px;
+}
+
+.card-image .card-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #4070F4;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333333;
+    margin-top: 10px;
+}
+
+.description {
+    font-size: 14px;
+    color: #707070;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.button {
+    border: none;
+    font-size: 16px;
+    color: #FFFFFF;
+    padding: 8px 16px;
+    background-color:#ff8e47;
+    border-radius: 6px;
+    margin: 14px;
+    cursor: pointer;
+    transition: background .3s ease;
+}
+
+.button:hover { 
+    background: #265DF2; 
+}
+
+/* أزرار التنقل */
+.swiper-navBtn {
+    color: #6E93F7 !important;
+    transition: color .3s ease;
+}
+
+.swiper-navBtn:hover { 
+    color: #4070F4 !important; 
+}
+
+.swiper-navBtn::before, 
+.swiper-navBtn::after { 
+    font-size: 40px !important; 
+}
+
+.swiper-button-next { right: 0 !important; }
+.swiper-button-prev { left: 0 !important; }
+
+/* النقاط */
+.swiper-pagination-bullet {
+    background-color: #6E93F7 !important; 
+    opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #4070F4 !important; 
+}
+
+/* الاستجابة */
+@media screen and (max-width: 768px) {
+    .swiper-container {
+        margin: 20px auto;
+        padding: 20px 0;
+    }
+    .button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+    .swiper-navBtn {
+        display: none !important;
+    }
+}

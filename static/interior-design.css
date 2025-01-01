@@ -1,0 +1,454 @@
+/* interior-design.css */
+
+/* استيراد خط Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* تعريف متغيرات CSS الأساسية */
+:root {
+    --primary-color: #ff8e47; /* لون الأساس */
+    --secondary-color: #4070F4; /* لون ثانوي */
+    --text-color: #333333; /* لون النص الأساسي */
+    --background-color: #f0f4f8; /* لون الخلفية */
+    --card-bg: #ffffff; /* خلفية الكروت */
+    --shadow-color: rgba(0, 0, 0, 0.1); /* لون الظل */
+    --hover-primary-color: #e07b3c; /* لون الأساس عند التحويم */
+    --hover-secondary-color: #335eea; /* لون ثانوي عند التحويم */
+    --transition-duration: 0.3s; /* مدة الانتقالات */
+    --border-radius: 15px; /* نصف قطر الحدود */
+    --font-family: 'Poppins', sans-serif; /* عائلة الخط */
+    --gradient-bg: linear-gradient(135deg, rgba(255, 142, 71, 0.1), rgba(64, 112, 244, 0.1));
+}
+
+/* حاوية قسم التصميم الداخلي */
+.interior-design {
+    position: relative;
+    padding: 100px 20px;
+    background: linear-gradient(135deg, #f7f7f7 0%, #e2e2e2 100%);
+    overflow: hidden;
+    font-family: var(--font-family);
+}
+
+.interior-design-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* عنوان قسم التصميم الداخلي */
+.interior-design-container h2 {
+    text-align: center;
+    font-size: 48px;
+    color: var(--text-color);
+    margin-bottom: 60px;
+    position: relative;
+    font-weight: 700;
+    letter-spacing: 1px;
+    animation: fadeInDown 1s ease-out;
+}
+
+.interior-design-container h2::after {
+    content: '';
+    width: 100px;
+    height: 4px;
+    background: var(--primary-color);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -15px;
+    border-radius: 2px;
+}
+
+/* الفلاتر */
+.interior-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.interior-filters .filter-btn {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 2px solid var(--primary-color);
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.interior-filters .filter-btn:hover,
+.interior-filters .filter-btn.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* شبكة المشاريع */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    justify-items: center;
+}
+
+/* بطاقة المشروع ثلاثية الأبعاد */
+.project-card {
+    perspective: 1000px; /* مهم لإتاحة المنظور ثلاثي الأبعاد */
+    width: 300px;
+    height: 400px;
+    position: relative;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+    animation: puff 1.8s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+    /* إزالة السطر التالي */
+    /* opacity: 0; */
+}
+
+
+.project-card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+.project-card:nth-child(2) {
+    animation-delay: 0.4s;
+}
+.project-card:nth-child(3) {
+    animation-delay: 0.6s;
+}
+/* يمكنك إضافة المزيد من التأخيرات للعناصر الأخرى حسب الحاجة */
+
+/* البنية الداخلية للبطاقة */
+.project-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.8s ease;
+    transform-style: preserve-3d;
+}
+
+.project-card:hover .project-inner {
+    transform: rotateY(180deg);
+}
+
+/* الوجوه */
+.project-front,
+.project-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* إخفاء الوجه الخلفي عند الدوران */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* الوجه الأمامي */
+.project-front {
+    background: var(--card-bg);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-front img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.project-front img:hover {
+    transform: scale(1.05);
+}
+
+.project-front h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+    transition: color var(--transition-duration) ease, transform var(--transition-duration) ease;
+}
+
+.project-front p {
+    font-size: 14px;
+    color: #666;
+    text-align: center;
+    padding: 0 10px;
+}
+
+/* الوجه الخلفي */
+.project-back {
+    background: var(--card-bg);
+    transform: rotateY(180deg);
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.project-back h4 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.project-back p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.project-back .project-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.project-back .project-images a {
+    position: relative;
+    display: inline-block;
+}
+
+.project-back .project-images img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-back .project-images img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* زر طلب الخدمة */
+.project-link {
+    text-decoration: none;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 25px;
+    transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-top: 15px;
+}
+
+.project-link:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* إضافة تظليل للنصوص */
+.project-front h3, .project-front p, .project-back h4, .project-back p {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+/* استجابة التصميم */
+@media screen and (max-width: 1024px) {
+    .interior-design-container {
+        padding: 60px 15px;
+    }
+
+    .interior-design-container h2 {
+        font-size: 32px;
+        margin-bottom: 40px;
+    }
+
+    .interior-filters {
+        gap: 10px;
+    }
+
+    .interior-filters .filter-btn {
+        padding: 8px 20px;
+        font-size: 14px;
+    }
+
+    .projects-grid {
+        gap: 25px;
+    }
+
+    .project-card {
+        width: 280px;
+        height: 380px;
+    }
+
+    .project-front img,
+    .project-back .project-images img {
+        height: 160px;
+    }
+
+    .project-front h3 {
+        font-size: 20px;
+    }
+
+    .project-front p {
+        font-size: 13px;
+    }
+
+    .project-back h4 {
+        font-size: 18px;
+    }
+
+    .project-back p {
+        font-size: 13px;
+    }
+
+    .project-link {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .interior-design-container {
+        padding: 40px 10px;
+    }
+
+    .interior-design-container h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    .interior-filters {
+        gap: 8px;
+    }
+
+    .interior-filters .filter-btn {
+        padding: 6px 16px;
+        font-size: 13px;
+    }
+
+    .projects-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .project-card {
+        width: 250px;
+        height: 350px;
+    }
+
+    .project-front img,
+    .project-back .project-images img {
+        height: 140px;
+    }
+
+    .project-front h3 {
+        font-size: 18px;
+    }
+
+    .project-front p {
+        font-size: 12px;
+    }
+
+    .project-back h4 {
+        font-size: 16px;
+    }
+
+    .project-back p {
+        font-size: 12px;
+    }
+
+    .project-link {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .interior-design-container {
+        padding: 30px 10px;
+    }
+
+    .interior-design-container h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .interior-filters {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .interior-filters .filter-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .project-card {
+        width: 100%;
+        height: auto;
+    }
+
+    .project-front img,
+    .project-back .project-images img {
+        height: 120px;
+    }
+
+    .project-front h3 {
+        font-size: 16px;
+    }
+
+    .project-front p {
+        font-size: 11px;
+    }
+
+    .project-back h4 {
+        font-size: 14px;
+    }
+
+    .project-back p {
+        font-size: 11px;
+    }
+
+    .project-link {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+/* تأثيرات إضافية */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes puff {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

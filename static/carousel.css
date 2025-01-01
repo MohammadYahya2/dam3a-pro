@@ -1,0 +1,128 @@
+/* carousel.css */
+
+.card-carousel {
+    --trans-speed: 0.4s;
+    --spacer: 1rem;
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.card-carousel .card {
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform var(--trans-speed) ease, box-shadow var(--trans-speed) ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-carousel .card .card-body {
+    padding: 3rem; /* 3 * 1rem */
+}
+
+.card-carousel .card .card-title,
+.card-carousel .card .card-text,
+.card-carousel .card a {
+    transform: translateY(25%);
+    opacity: 1;
+    visibility: hidden;
+    transition: transform var(--trans-speed) ease-in-out, opacity var(--trans-speed) ease-in-out, visibility var(--trans-speed) ease-in-out;
+}
+
+.card-carousel .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+}
+
+.card-carousel .card:hover .card-title,
+.card-carousel .card:hover .card-text,
+.card-carousel .card:hover a {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.card-carousel .card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform var(--trans-speed) ease-in-out;
+}
+
+.card-carousel .card:hover img {
+    transform: scale(1.05);
+}
+
+/* Swiper Navigation Buttons */
+.card-carousel__nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.card-carousel .carousel__arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    background-color: #0d6efd; /* استخدم لوناً مناسباً */
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.card-carousel .carousel__arrow:hover {
+    background-color: #0b5ed7; /* لون عند التمرير */
+}
+
+.card-carousel .carousel__arrow svg {
+    fill: #fff;
+}
+
+.card-carousel .carousel__arrow:last-child {
+    margin-left: 1px;
+}
+
+/* Swiper Pagination Styling */
+.swiper-pagination-bullet {
+    background: #0d6efd;
+    opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+}
+
+/* Project Images */
+.project-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    padding: 20px;
+}
+
+.project-images .project-img {
+    width: calc(50% - 10px);
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.project-images .project-img:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .project-images .project-img {
+        width: 100%;
+    }
+}

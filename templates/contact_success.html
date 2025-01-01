@@ -1,0 +1,13 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <!-- ... نفس إعدادات الرأس ... -->
+    <title>Contact Success</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>Thank you! Your message has been sent successfully.</h2>
+    <a href="{% url 'index' %}">Return to Home</a>
+</body>
+</html>
